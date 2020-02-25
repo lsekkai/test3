@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <!-- Page level plugin CSS-->
-    <link href="../templates/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="./style/index.css" rel="stylesheet">
+    <link href="static/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="static/style/index.css" rel="stylesheet">
 
     <title>Acceuil</title>
 </head>
@@ -19,7 +19,7 @@
                     <h1 class="card-header">Translate</h1>
                     <h3 class="translate-decription">Cliquez ici pour</h3>
                     <h3 class="translate-decription">Traduire une phrase</h3>
-                    <a role="button" href="traductions.html" class="btn btn-success">GO !</a>
+                    <a role="button" href="{{ url_for('traductions') }}" class="btn btn-success">GO !</a>
                 </div>
             </div>
             <div class="col-xl-6 col-sm-6 mb-6">
@@ -27,7 +27,7 @@
                     <h1 class="card-header">Score</h1>
                     <h3 class="translate-decription">Cliquez ici pour</h3>
                     <h3 class="translate-decription">Noter une traduction</h3>
-                    <a role="button" href="score.html" class="btn btn-success">GO !</a>
+                    <a role="button" href="{{ url_for('score') }}" class="btn btn-success">GO !</a>
                 </div>
             </div>
         </div>
