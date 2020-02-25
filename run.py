@@ -1,19 +1,18 @@
+from sqlalchemy_utils import database_exists
 from flask import Flask, render_template, url_for
 from models import db
 
 
-app = Flask(
-    __name__,
-    template_folder="app/templates/",
-    static_folder="app/templates/"
-)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
+app = Flask(__name__, template_folder="app/templates/",
+                      static_folder="app/templates/")
+DB_URI = 'sqlite:///test.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = DB_URI
+if not database_exists(DB_URI):
+    with app.app_context():
+        db.create_all()
+
+
 db.init_app(app)
-
-
-with app.app_context():
-    db.drop_all()
-    db.create_all()
 
 
 @app.route('/')
