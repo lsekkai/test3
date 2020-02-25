@@ -43,9 +43,8 @@
 			    <div class="item mb-5">
 				    <div class="media">
 					    <div class="media-body">
-						    <h3 class="title mb-1">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Reprehenderit distinctio iure nulla et recusandae? Nostrum omnis asperiores, in, maxime ut amet, maiores deserunt vel culpa iure dolores sapiente numquam sed.</h3>
-						    
 							{% for traduction in traductions %}
+							<h3 class="title mb-1">{{ traduction }}</h3>
 								<form id="comment-form{traduction.id}" class="signup-form form-inline pt-3" action="{{ url_for('traduction',id_traduction=traduction.id)}}" method="POST">
 									<div class="form-check">
 										<input type="checkbox" name="issue" class="form-check-input" id="exampleCheck{traduction.id}">
@@ -61,16 +60,6 @@
 				    </div><!--//media-->
 				</div><!--//item-->
 				
-			    <div class="item mb-5">
-				    <div class="media">
-					    <div class="media-body">
-						    <h3 class="title mb-1">111Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies...</h3>
-						    
-
-					    </div><!--//media-body-->
-				    </div><!--//media-->
-			    </div><!--//item-->
-			   
 		    </div>
 	    </section>
 	    

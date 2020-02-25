@@ -38,7 +38,10 @@ def traduction():
         # et l'utilisateur fait entrer du text on garde le text et le checkbox et a True
 
         db.session.commit()
-    return render_template('traductions.html',Translation.query.filter(translated=False).all())
+    not_translated = Translation.query.filter(Translation.translated == False).all()
+    if not not_translated:
+        not_translated = ["truc", "machin", "chouette"]
+    return render_template('traductions.html', traductions=not_translated)
 
 @app.route('/score')
 def score():
