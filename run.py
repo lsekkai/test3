@@ -43,8 +43,18 @@ def traduction():
     return render_template('traductions.html', traductions=not_translated)
 
 
-@app.route('/score')
+@app.route('/score', methods=['GET', 'POST'])
 def score():
+    id_traduction = request.args.get('id_traduction')
+    if request.method == 'POST':
+        username = session.get("user", default="Yahya")
+        # Si c'est pas le meme user qui a traduit
+        if username != traduction.translatedBy:
+            traduction.verified = True
+            traduction.verifiedOn = datetime.utcnow()
+            traduction.verifiedBy = username
+        # TODO: afficher un message d'erreur si c'est le meme...
+        # else: ...
     not_scored = Translation.query.filter(Translation.translated == True and
                                           Translation.verified == False).all()
     return render_template('score.html', traductions=not_scored)
