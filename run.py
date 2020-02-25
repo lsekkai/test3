@@ -1,7 +1,9 @@
+from datetime import datetime
+
+from sqlalchemy.orm import session
 from sqlalchemy_utils import database_exists
 from flask import Flask, render_template, url_for,request
-from models import db
-
+from models import db, Translation
 
 app = Flask(__name__, template_folder="app/templates/",
                       static_folder="app/templates/")
@@ -19,18 +21,25 @@ db.init_app(app)
 def index():
     return render_template('index.html')
 
-#
-@app.route('/traductions')
-def traductions():
-
-    return render_template('traductions.html')
-
 
 @app.route('/traduction', methods=['GET', 'POST'])
 def traduction():
-    request.method == 'POST'
     id_traduction = request.args.get('id_traduction')
-    return render_template('traductions.html')
+    if request.method == 'POST':
+        traduction = Translation.query.filter(id=id_traduction).first()
+        traduction.trg= request.form['phrase-traduit']
+        traduction.translated=True
+        traduction.translatedOn = datetime.utcnow
+        traduction.translatedBy = session['user']
+        traduction.issue = request.form['issue']
+
+         # li ce commentaire stp
+         # il ma dit meme si la phrase ne peut pas etre traduite il a coché sur issue
+        # et l'utilisateur fait entrer du text on garde le text et le checkbox et a True
+
+        db.session.add(traduction)
+        db.session.commit()
+    return render_template('traductions.html',Translation.query.filter(translated=False).all())
 
 @app.route('/score')
 def score():
