@@ -47,7 +47,7 @@
 							<h3 class="title mb-1">{{ traduction.src }}</h3>
 								<form id="comment-form{{traduction.id}}" class="signup-form form-inline pt-3" action="{{ url_for('traduction',id_traduction=traduction.id)}}" method="POST">
 									<div class="form-check">
-										<input type="checkbox" name="issue" class="form-check-input" id="exampleCheck{{traduction.id}}">
+										<input type="checkbox" name="issue{{traduction.id}}" class="form-check-input" id="issue{{traduction.id}}">
 										<label class="form-check-label" for="exampleCheck{{traduction.id}}">impossible to translate</label>
 									</div>
 									<div class="form-group">
