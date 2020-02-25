@@ -1,5 +1,5 @@
 from sqlalchemy_utils import database_exists
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for,request
 from models import db
 
 
@@ -19,11 +19,18 @@ db.init_app(app)
 def index():
     return render_template('index.html')
 
-
+#
 @app.route('/traductions')
 def traductions():
+
     return render_template('traductions.html')
 
+
+@app.route('/traduction', methods=['GET', 'POST'])
+def traduction():
+    request.method == 'POST'
+    id_traduction = request.args.get('id_traduction')
+    return render_template('traductions.html')
 
 @app.route('/score')
 def score():

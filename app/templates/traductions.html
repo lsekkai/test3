@@ -62,15 +62,15 @@
 			    <div class="item mb-5">
 				    <div class="media">
 					    <div class="media-body">
-						    <h3 class="title mb-1">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies...</h3>
+						    <h3 class="title mb-1">111Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies...</h3>
 						    
-							<form id="comment-form" class="signup-form form-inline pt-3">
+							<form id="comment-form1" class="signup-form form-inline pt-3" action="{{ url_for('traduction')}}" method="POST">
 								<div class="form-check">
 									<input type="checkbox" class="form-check-input" id="exampleCheck2">
 									<label class="form-check-label" for="exampleCheck2">impossible to translate</label>
 								</div>
 								<div class="form-group">
-									<textarea   id="traduction" cols="70%" form="comment-form" class=" form-control mr-md-1 semail " placeholder="Traduire..."></textarea>
+									<textarea  name="textarea" id="traduction1" cols="70%" form="comment-form1" class=" form-control mr-md-1 semail " placeholder="Traduire..."></textarea>
 								</div>
 								<button type="submit" class="btn btn-primary">Send</button>
 							</form>

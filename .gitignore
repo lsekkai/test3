@@ -2,3 +2,4 @@ venv/
 .vscode
 __pycache__
 app/templates/static/**/*.DS_Store
+.idea
