@@ -30,11 +30,11 @@ def traduction():
     id_traduction = request.args.get('id_traduction')
     if request.method == 'POST':
         traduction = Translation.query.filter(Translation.id == id_traduction).first()
-        traduction.trg= request.form['phrase-traduit']
-        traduction.translated=True
-        traduction.translatedOn = datetime.utcnow
+        traduction.trg = request.form['phrase-traduit']
+        traduction.translated = True
+        traduction.translatedOn = datetime.utcnow()
         traduction.translatedBy = session.get("user", default="Djamel")
-        traduction.issue = request.form['issue']
+        traduction.issue = request.args.get("exampleCheck" + id_traduction)
 
          # li ce commentaire stp
          # il ma dit meme si la phrase ne peut pas etre traduite il a coché sur issue
