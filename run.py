@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from sqlalchemy import and_
 from sqlalchemy_utils import database_exists
 from flask import Flask, render_template, url_for, request, session
 from models import db, Translation, User
@@ -50,18 +51,20 @@ def traduction():
 
 @app.route('/score', methods=['GET', 'POST'])
 def score():
-    id_traduction = request.args.get('id_traduction')
     if request.method == 'POST':
         username = session.get("user", default="Yahya")
+        id_traduction = request.args.get('id_traduction')
+        traduction = Translation.query.filter(Translation.id == id_traduction).first()
         # Si c'est pas le meme user qui a traduit
         if username != traduction.translatedBy:
             traduction.verified = True
+            traduction.quality = int(request.form.get(f"score{id_traduction}"))
             traduction.verifiedOn = datetime.utcnow()
             traduction.verifiedBy = username
         # TODO: afficher un message d'erreur si c'est le meme...
         # else: ...
-    not_scored = Translation.query.filter(Translation.translated == True and
-                                          Translation.verified == False).all()
+    not_scored = Translation.query.filter(and_(Translation.translated == True,
+                                               Translation.verified == False)).all()
     return render_template('score.html', traductions=not_scored)
 
 
