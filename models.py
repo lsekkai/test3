@@ -17,7 +17,7 @@ class Translation(db.Model):
     translatedBy = db.Column(db.String, default="---")
     quality = db.Column(db.Integer, default=0)
     verified = db.Column(db.Boolean, default=False)
-    verifiedOn = db.Column(db.Date, default="---")
+    verifiedOn = db.Column(db.Date, nullable=True)
     verifiedBy = db.Column(db.String, default="---")
 
 

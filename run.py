@@ -9,12 +9,16 @@ app = Flask(__name__, template_folder="app/templates/",
                       static_folder="app/templates/")
 DB_URI = 'sqlite:///test.db'
 app.config['SQLALCHEMY_DATABASE_URI'] = DB_URI
+db.init_app(app)
 if not database_exists(DB_URI):
     with app.app_context():
         db.create_all()
-
-
-db.init_app(app)
+        tr1 = Translation(src="text1")
+        tr2 = Translation(src="text2")
+        tr3 = Translation(src="text3")
+        for tr in (tr1, tr2, tr3):
+            db.session.add(tr)
+        db.session.commit()
 
 
 @app.route('/')
@@ -38,9 +42,8 @@ def traduction():
         # et l'utilisateur fait entrer du text on garde le text et le checkbox et a True
 
         db.session.commit()
+
     not_translated = Translation.query.filter(Translation.translated == False).all()
-    if not not_translated:
-        not_translated = ["truc", "machin", "chouette"]
     return render_template('traductions.html', traductions=not_translated)
 
 @app.route('/score')
