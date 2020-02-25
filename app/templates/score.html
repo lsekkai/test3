@@ -44,57 +44,24 @@
 			    <div class="item mb-5">
 				    <div class="media">
 					    <div class="media-body">
-						    <h3 class="title mb-1">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Reprehenderit distinctio iure nulla et recusandae? Nostrum omnis asperiores, in, maxime ut amet, maiores deserunt vel culpa iure dolores sapiente numquam sed.</h3>
+                            {% for traduction in traductions %}
+							<h3 class="title mb-1">{traduction.src}</h3>
+							<h3 class="title mb-1">{traduction.trg}</h3>
 							<form id="comment-form" class="signup-form form-inline pt-3">
                                 <div class="form-group">
                                     <input type="number" form="comment-form" value="0" min="0" max="10" class=" form-control mr-md-1 semail "></br>
-                                    <h6><label class="form-check-label" for="exampleCheck3">note the translation</label> </h6>
+                                    <h6><label class="form-check-label" for="exampleCheck{traduction.id}">note the translation</label> </h6>
                                 </div>
 								<div class="form-group">
 									<textarea   id="comment" cols="70%" form="comment-form" class=" form-control mr-md-1 semail " placeholder="comment..."></textarea>
 								</div>
 								<button type="submit" class="btn btn-primary">Send</button>
 							</form>
+							{% endfor %}
 					    </div><!--//media-body-->
 				    </div><!--//media-->
 				</div><!--//item-->
 				
-			    <div class="item mb-5">
-				    <div class="media">
-					    <div class="media-body">
-						    <h3 class="title mb-1">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies...</h3>
-						    <form id="comment-form" class="signup-form form-inline pt-3">
-                                <div class="form-group">
-                                    <input type="number" form="comment-form" value="0" min="0" max="10" class=" form-control mr-md-1 semail "></br>
-                                    <h6><label class="form-check-label" for="exampleCheck3">note the translation</label> </h6>
-                                </div>
-                                <div class="form-group">
-									<textarea   id="traduction" cols="70%" form="comment-form" class=" form-control mr-md-1 semail " placeholder="comment..."></textarea>
-								</div>
-								<button type="submit" class="btn btn-primary">Send</button>
-							</form>
-					    </div><!--//media-body-->
-				    </div><!--//media-->
-			    </div><!--//item-->
-			    
-			    <div class="item">
-				    <div class="media">
-					    <div class="media-body">
-						   <h3 class="title mb-1">About Remote Working</h3>
-						   <form id="comment-form" class="signup-form form-inline pt-3">
-                                <div class="form-group">
-                                    <input type="number" form="comment-form" value="0" min="0" max="10" class=" form-control mr-md-1 semail "></br>
-                                    <h6><label class="form-check-label" for="exampleCheck3">note the translation</label> </h6>
-                                </div>
-                                <div class="form-group">
-									<textarea   id="traduction" cols="70%" form="comment-form" class=" form-control mr-md-1 semail " placeholder="comment..."></textarea>
-								</div>
-								<button type="submit" class="btn btn-primary">Send</button>
-							</form>
-					    </div><!--//media-body-->
-				    </div><!--//media-->
-			    </div><!--//item-->
-			   
 		    </div>
 	    </section>
 	    

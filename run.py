@@ -45,9 +45,10 @@ def traduction():
     not_translated = Translation.query.filter(Translation.translated == False).all()
     return render_template('traductions.html', traductions=not_translated)
 
+
 @app.route('/score')
 def score():
-    return render_template('score.html')
+    return render_template('score.html', traductions=[])
 
 
 if __name__ == '__main__':
