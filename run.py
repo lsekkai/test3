@@ -33,7 +33,7 @@ def traduction():
         traduction.trg= request.form['phrase-traduit']
         traduction.translated=True
         traduction.translatedOn = datetime.utcnow
-        traduction.translatedBy = session['user']
+        traduction.translatedBy = session.get("user", default="Djamel")
         traduction.issue = request.form['issue']
 
          # li ce commentaire stp
