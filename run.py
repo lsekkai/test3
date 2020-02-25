@@ -37,7 +37,6 @@ def traduction():
          # il ma dit meme si la phrase ne peut pas etre traduite il a coché sur issue
         # et l'utilisateur fait entrer du text on garde le text et le checkbox et a True
 
-        db.session.add(traduction)
         db.session.commit()
     return render_template('traductions.html',Translation.query.filter(translated=False).all())
 
