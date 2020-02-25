@@ -12,11 +12,8 @@ db.init_app(app)
 if not database_exists(DB_URI):
     with app.app_context():
         db.create_all()
-        tr1 = Translation(src="text1")
-        tr2 = Translation(src="text2")
-        tr3 = Translation(src="text3")
-        for tr in (tr1, tr2, tr3):
-            db.session.add(tr)
+        for i in range(1, 21):
+            db.session.add(Translation(src=f"text{i}"))
         db.session.commit()
 
 
@@ -30,11 +27,11 @@ def traduction():
     id_traduction = request.args.get('id_traduction')
     if request.method == 'POST':
         traduction = Translation.query.filter(Translation.id == id_traduction).first()
-        traduction.trg = request.form['phrase-traduit']
+        traduction.trg = request.args.get("traduction{id_traduction}")
         traduction.translated = True
         traduction.translatedOn = datetime.utcnow()
         traduction.translatedBy = session.get("user", default="Djamel")
-        traduction.issue = request.args.get("exampleCheck" + id_traduction)
+        traduction.issue = request.args.get("exampleCheck{id_traduction}")
 
          # li ce commentaire stp
          # il ma dit meme si la phrase ne peut pas etre traduite il a coché sur issue
