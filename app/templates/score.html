@@ -41,27 +41,28 @@
 	    </section>
 	    <section class="blog-list px-3 py-5 p-md-5">
 		    <div class="container">
+				{% for traduction in traductions %}
 			    <div class="item mb-5">
 				    <div class="media">
 					    <div class="media-body">
-                            {% for traduction in traductions %}
+
 							<h3 class="title mb-1">{{traduction.src}}</h3>
 							<h3 class="title mb-1">{{traduction.trg}}</h3>
 							<form id="comment-form" class="signup-form form-inline pt-3">
                                 <div class="form-group">
-                                    <input type="number" form="comment-form" value="0" min="0" max="10" class=" form-control mr-md-1 semail "></br>
-                                    <h6><label class="form-check-label" for="exampleCheck{traduction.id}">note the translation</label> </h6>
+                                    <input type="number" form="comment-form" value="0" min="0" max="10" id="exampleCheck{traduction.id} class=" form-control mr-md-1 semail "></br>
+                                    <h6><label class="form-check-label" for="exampleCheck{traduction.id}" >Note the translation</label> </h6>
                                 </div>
 								<div class="form-group">
 									<textarea   id="comment" cols="70%" form="comment-form" class=" form-control mr-md-1 semail " placeholder="comment..."></textarea>
 								</div>
 								<button type="submit" class="btn btn-primary">Send</button>
 							</form>
-							{% endfor %}
+
 					    </div><!--//media-body-->
 				    </div><!--//media-->
 				</div><!--//item-->
-				
+				{% endfor %}
 		    </div>
 	    </section>
 	    

@@ -40,10 +40,13 @@
 	    </section>
 	    <section class="blog-list px-3 py-5 p-md-5">
 		    <div class="container">
+				{% for traduction in traductions %}
 			    <div class="item mb-5">
+
 				    <div class="media">
+
 					    <div class="media-body">
-							{% for traduction in traductions %}
+
 							<h3 class="title mb-1">{{ traduction.src }}</h3>
 								<form id="comment-form{{traduction.id}}" class="signup-form form-inline pt-3" action="{{ url_for('traduction',id_traduction=traduction.id)}}" method="POST">
 									<div class="form-check">
@@ -55,10 +58,13 @@
 									</div>
 									<button type="submit" class="btn btn-primary">Send</button>
 								</form>
-							{% endfor %}
+
 					    </div><!--//media-body-->
+
 				    </div><!--//media-->
 				</div><!--//item-->
+									{% endfor %}
+
 				
 		    </div>
 	    </section>
