@@ -1,0 +1,26 @@
+.card {
+    border-color: rgb(12, 34, 160);
+    background-color: rgb(228, 2340, 250);
+    margin-top: 60%;
+    height: 200px;
+    padding-bottom: 250px;
+} 
+ 
+.card-header{
+    text-align: center;
+    background-color:#62acff;
+}
+h3{
+    text-align: center;
+}
+a{
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-top: 5%;
+    
+}
+body{
+    background-color: rgb(228, 236, 250);
+    background-image: url('./icon/google_translate.png');
+    background-repeat: no-repeat;
+}

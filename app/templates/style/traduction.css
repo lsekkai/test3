@@ -1,0 +1,31 @@
+.header{
+    background-color: rgb(228, 236, 250);
+    background-image: url('./icon/google_translate.png');
+    background-repeat: no-repeat;
+}
+.header a{
+    color: black;
+}
+.link-back{
+    margin-top: 200%;
+    margin-left: 30%;
+    
+}
+.p-md-5 {
+    padding: 0px !important;
+    margin: 20px;
+}
+.container{
+    margin-left: 50px;
+}
+a.btn.btn-success{
+    background-color:#5fcb71 ;
+}
+.media-body{
+    border-radius: 10px;
+    background-color: rgb(245, 245, 245);
+}
+#comment-form button{
+    background-color: #2e7eb1;
+    border-color: #2e7eb1;
+}
