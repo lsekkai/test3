@@ -2,7 +2,7 @@ from datetime import datetime
 
 from sqlalchemy_utils import database_exists
 from flask import Flask, render_template, url_for, request, session
-from models import db, Translation
+from models import db, Translation, User
 
 app = Flask(__name__, template_folder="app/templates/",
                       static_folder="app/templates/")
@@ -14,6 +14,8 @@ if not database_exists(DB_URI):
         db.create_all()
         for i in range(1, 21):
             db.session.add(Translation(src=f"text{i}"))
+        db.session.add(User(name="Djamel"))
+        db.session.add(User(name="Yahya"))
         db.session.commit()
 
 
@@ -27,11 +29,11 @@ def traduction():
     id_traduction = request.args.get('id_traduction')
     if request.method == 'POST':
         traduction = Translation.query.filter(Translation.id == id_traduction).first()
-        traduction.trg = request.args.get("traduction{id_traduction}")
+        traduction.trg = request.form[f"translation{id_traduction}"]
         traduction.translated = True
         traduction.translatedOn = datetime.utcnow()
         traduction.translatedBy = session.get("user", default="Djamel")
-        traduction.issue = request.args.get("exampleCheck{id_traduction}")
+        traduction.issue = request.args.get(f"exampleCheck{id_traduction}")
 
          # li ce commentaire stp
          # il ma dit meme si la phrase ne peut pas etre traduite il a coché sur issue

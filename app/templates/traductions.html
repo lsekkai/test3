@@ -45,13 +45,13 @@
 					    <div class="media-body">
 							{% for traduction in traductions %}
 							<h3 class="title mb-1">{{ traduction.src }}</h3>
-								<form id="comment-form{traduction.id}" class="signup-form form-inline pt-3" action="{{ url_for('traduction',id_traduction=traduction.id)}}" method="POST">
+								<form id="comment-form{{traduction.id}}" class="signup-form form-inline pt-3" action="{{ url_for('traduction',id_traduction=traduction.id)}}" method="POST">
 									<div class="form-check">
-										<input type="checkbox" name="issue" class="form-check-input" id="exampleCheck{traduction.id}">
-										<label class="form-check-label" for="exampleCheck{traduction.id}">impossible to translate</label>
+										<input type="checkbox" name="issue" class="form-check-input" id="exampleCheck{{traduction.id}}">
+										<label class="form-check-label" for="exampleCheck{{traduction.id}}">impossible to translate</label>
 									</div>
 									<div class="form-group">
-										<textarea  name="phrase-traduit" id="traduction{traduction.id}" cols="70%" form="comment-form{traduction.id}" class=" form-control mr-md-1 semail " placeholder="Traduire..."></textarea>
+										<textarea  name="translation{{traduction.id}}" id="traduction{{traduction.id}}" cols="70%" form="comment-form{{traduction.id}}" class=" form-control mr-md-1 semail " placeholder="Traduire..."></textarea>
 									</div>
 									<button type="submit" class="btn btn-primary">Send</button>
 								</form>
