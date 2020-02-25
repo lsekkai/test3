@@ -3,3 +3,4 @@ venv/
 __pycache__
 app/templates/static/**/*.DS_Store
 .idea
+test.db
