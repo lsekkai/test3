@@ -45,8 +45,8 @@
 				    <div class="media">
 					    <div class="media-body">
                             {% for traduction in traductions %}
-							<h3 class="title mb-1">{traduction.src}</h3>
-							<h3 class="title mb-1">{traduction.trg}</h3>
+							<h3 class="title mb-1">{{traduction.src}}</h3>
+							<h3 class="title mb-1">{{traduction.trg}}</h3>
 							<form id="comment-form" class="signup-form form-inline pt-3">
                                 <div class="form-group">
                                     <input type="number" form="comment-form" value="0" min="0" max="10" class=" form-control mr-md-1 semail "></br>
