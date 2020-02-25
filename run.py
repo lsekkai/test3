@@ -13,7 +13,7 @@ if not database_exists(DB_URI):
     with app.app_context():
         db.create_all()
         for i in range(1, 21):
-            db.session.add(Translation(src=f"text{i}"))
+            db.session.add(Translation(src=f"text {i}"))
         db.session.commit()
 
 
