@@ -30,7 +30,7 @@ def index():
 def traduction():
     id_traduction = request.args.get('id_traduction')
     if request.method == 'POST':
-        traduction = Translation.query.filter(id=id_traduction).first()
+        traduction = Translation.query.filter(Translation.id == id_traduction).first()
         traduction.trg= request.form['phrase-traduit']
         traduction.translated=True
         traduction.translatedOn = datetime.utcnow
