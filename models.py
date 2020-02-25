@@ -19,7 +19,7 @@ class Translation(db.Model):
     verified = db.Column(db.Boolean, default=False)
     verifiedOn = db.Column(db.Date, nullable=True)
     verifiedBy = db.Column(db.String, default="---")
-
+    com = db.Column(db.String, default="---")
 
 class User(db.Model):
 

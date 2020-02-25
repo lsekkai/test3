@@ -37,7 +37,7 @@ def traduction():
             traduction.translated = True
             traduction.translatedOn = datetime.utcnow()
             traduction.translatedBy = session.get("user", default="Djamel")
-            traduction.issue = request.args.get(f"exampleCheck{id_traduction}")
+            traduction.issue = True if issue else False
 
          # li ce commentaire stp
          # il ma dit meme si la phrase ne peut pas etre traduite il a coché sur issue
@@ -51,20 +51,28 @@ def traduction():
 
 @app.route('/score', methods=['GET', 'POST'])
 def score():
+    username = session.get("user", default="Yahya")
     if request.method == 'POST':
-        username = session.get("user", default="Yahya")
+
         id_traduction = request.args.get('id_traduction')
         traduction = Translation.query.filter(Translation.id == id_traduction).first()
         # Si c'est pas le meme user qui a traduit
         if username != traduction.translatedBy:
             traduction.verified = True
-            traduction.quality = int(request.form.get(f"score{id_traduction}"))
+            traduction.quality = int(request.form['score'+id_traduction])
             traduction.verifiedOn = datetime.utcnow()
             traduction.verifiedBy = username
+            traduction.com = request.form['com'+id_traduction]
+            db.session.commit()
+
+
         # TODO: afficher un message d'erreur si c'est le meme...
         # else: ...
     not_scored = Translation.query.filter(and_(Translation.translated == True,
-                                               Translation.verified == False)).all()
+                                               Translation.verified == False,
+                                               Translation.translatedBy != username,
+                                               Translation.issue==False
+                                               )).all()
     return render_template('score.html', traductions=not_scored)
 
 
