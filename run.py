@@ -1,8 +1,7 @@
 from datetime import datetime
 
-from sqlalchemy.orm import session
 from sqlalchemy_utils import database_exists
-from flask import Flask, render_template, url_for,request
+from flask import Flask, render_template, url_for, request, session
 from models import db, Translation
 
 app = Flask(__name__, template_folder="app/templates/",
