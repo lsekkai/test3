@@ -27,6 +27,8 @@ class User(db.Model):
     id = db.Column("id", db.Integer(), primary_key=True)
     name = db.Column("name", db.String(255), nullable=False, unique=True)
     avrg = db.Column(db.Integer, default=0)
+    def __repr__(self):
+        return self.name
 
     @property
     def average_score_user(self):
@@ -48,7 +50,10 @@ class User(db.Model):
             for j in range(len(list1)):
                 if list1[j].avrg > max1:
                     max1 = list1[j].avrg
-            string = list1[j].name+" : "+str(list1[j].avrg)
-            list1.remove(list1[j])
-            final_list.append(string)
+
+            for user in list1:
+                if user.avrg==max1:
+                    string = user.name + " : " + str(user.avrg)
+                    list1.remove(user)
+                    final_list.append(string)
         return (final_list)
