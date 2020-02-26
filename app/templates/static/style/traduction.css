@@ -1,13 +1,10 @@
 .header{
     background-color: rgb(228, 236, 250);
-    background-image: url('./icon/google_translate.png');
-    background-repeat: no-repeat;
 }
 .header a{
     color: black;
 }
 .link-back{
-    margin-top: 200%;
     margin-left: 30%;
 }
 .p-md-5 {

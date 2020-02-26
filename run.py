@@ -9,8 +9,8 @@ from models import db, Translation, User
 
 app = Flask(__name__, template_folder="app/templates/",
                       static_folder="app/templates/")
-# DB_URI = 'sqlite:///test.db'
-DB_URI = 'mysql+mysqlconnector://yahya:yahya@localhost/test'
+DB_URI = 'sqlite:///test.db'
+# DB_URI = 'mysql+mysqlconnector://yahya:yahya@localhost/test'
 app.config['SQLALCHEMY_DATABASE_URI'] = DB_URI
 app.config['SESSION_TYPE'] = 'filesystem'
 app.config['SECRET_KEY'] = 'super secret key'

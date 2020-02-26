@@ -19,11 +19,12 @@
 <body>
     
     <div class="header " style="overflow: auto;">
-		<img src="./static/style/icon/google_translate.png" height="142" width="142"/>
+		<img src="./static/style/icon/google_translate.png" height="142" width="142" style="margin-bottom: 50px;"/>
 		<div class="link-back" style="margin-bottom:50%"><div class="card " style="margin-right:10px; ">
 				<h6>* Your Score : {{avrg}}</h6>
 			</div>
-			<h6>Top  5 :</h6>
+
+			<h6 style="margin-top: 50px;">Top  5 :</h6>
 			<div class="top-ten ">
 				{% for top in tops %}
 					<i style="color: black;">* {{top}}</i><br/>
