@@ -21,7 +21,8 @@
     <header class="header ">	    
 		<div class="link-back">
 			<i class="fa fa-home" style="color: black;" >  </i><a role="text" href="{{ url_for('index') }}" >  Home</a><br/>
-			<i class="fas fa-language" style="color: black;"></i><a role="text" href="{{ url_for('traduction') }}" >  Translate</a>
+			<i class="fas fa-language" style="color: black;"></i><a role="text" href="{{ url_for('traduction') }}" >  Translate</a><br/>
+			<i class="fa fa-sign-out" style="color: black;"></i><a role="text" href="{{ url_for('logout') }}" >  Logout</a>
 		</div>
     </header>
     
@@ -31,9 +32,12 @@
 			    <h2 class="heading">Choisissez une phrase traduite et notez la </h2>
 			    <h2 class="heading">vous pouvez laisser un commentaire</h2>
 			    <div class="intro">Vous pouvez recherche une phrase rapidement en utilisant la barre de recherche </div>
-			    <form class="signup-form form-inline justify-content-center pt-3">
+			    <form id="recherch-form"
+					  class="signup-form form-inline justify-content-center pt-3"
+				 	  action="{{ url_for('reserch',page='score')}}"
+					  method="POST">
                     <div class="form-group">
-                        <input type="text" id="semail" name="semail1" class="form-control mr-md-1 semail" placeholder="recherche ...">
+                        <input type="text" id="semail" name="recherch" class="form-control mr-md-1 semail" placeholder="recherche ...">
                     </div>
                     <button type="submit" class="btn btn-primary">Recherche</button>
                 </form>
@@ -44,17 +48,18 @@
 				{% for traduction in traductions %}
 			    <div class="item mb-5">
 				    <div class="media">
-					    <div class="media-body">
+					    <div class="media-body"style="padding:7px;">
 
-							<h3 class="title mb-1">{{traduction.src}}</h3>
-							<h3 class="title mb-1">{{traduction.trg}}</h3>
-							<form id="comment-form" class="signup-form form-inline pt-3" action="{{ url_for('score' ,id_traduction=traduction.id)}}" method="POST">
+							<h3 class="title mb-1" style="margin-left:15px;">{{traduction.src}}</h3>
+							<p></p>
+							<h3 class="title mb-1" style="margin-left:15px;">{{traduction.trg}}</h3>
+							<form id="comment-form{{traduction.trg}}" class="signup-form form-inline pt-3" action="{{ url_for('score' ,id_traduction=traduction.id)}}" method="POST">
                                 <div class="form-group">
-                                    <input type="number" name="score{{traduction.id}}" form="comment-form" value="0" min="0" max="10" id="score{{traduction.id}}" class="form-control mr-md-1 semail"></br>
-                                    <h6><label class="form-check-label" for="exampleCheck{{traduction.id}}" >Note the translation</label> </h6>
+                                    <input type="number" name="score{{traduction.id}}" form="comment-form{{traduction.trg}}" value="0" min="0" max="10" id="score{{traduction.id}}" class="form-control mr-md-1 semail"></br>
+                                    <h6><label class="form-check-label" for="score{{traduction.id}}" >Note the translation</label> </h6>
                                 </div>
 								<div class="form-group">
-									<textarea   id="comment" cols="70%" form="comment-form" class=" form-control mr-md-1 semail " placeholder="comment..."></textarea>
+									<textarea   id="comment{{traduction.id}}" name="com{{traduction.id}}" cols="70%" form="comment-form{{traduction.trg}}" class=" form-control mr-md-1 semail " placeholder="comment..."></textarea>
 								</div>
 								<button type="submit" class="btn btn-primary">Send</button>
 							</form>

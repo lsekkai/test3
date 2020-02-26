@@ -1,26 +1,31 @@
 from datetime import datetime
-
-from sqlalchemy import and_
+from sqlalchemy import and_,or_
+from sqlalchemy.orm import Session
 from sqlalchemy_utils import database_exists
-from flask import Flask, render_template, url_for, request, session
+from flask import Flask, render_template, request, session, url_for
+from werkzeug.utils import redirect
+
 from models import db, Translation, User
 
 app = Flask(__name__, template_folder="app/templates/",
                       static_folder="app/templates/")
 DB_URI = 'sqlite:///test.db'
 app.config['SQLALCHEMY_DATABASE_URI'] = DB_URI
+app.config['SESSION_TYPE'] = 'filesystem'
+app.config['SECRET_KEY'] = 'super secret key'
+sess = Session()
 db.init_app(app)
 if not database_exists(DB_URI):
     with app.app_context():
         db.create_all()
         for i in range(1, 21):
-            db.session.add(Translation(src=f"text{i}"))
+            db.session.add(Translation(src=f"السلام عليكم ورحمة الله وبركاته{i}"))
         db.session.add(User(name="Djamel"))
         db.session.add(User(name="Yahya"))
         db.session.commit()
 
 
-@app.route('/')
+@app.route('/choise')
 def index():
     return render_template('index.html')
 
@@ -28,6 +33,11 @@ def index():
 @app.route('/traduction', methods=['GET', 'POST'])
 def traduction():
     id_traduction = request.args.get('id_traduction')
+    username = session.get("user", default="Djamel")
+    user = User.query.filter(User.name == username).first()
+    user.average_score_user
+    tops=user.Nmaxelements()
+
     if request.method == 'POST':
         traduction = Translation.query.filter(Translation.id == id_traduction).first()
         trg = request.form[f"translation{id_traduction}"]
@@ -37,36 +47,80 @@ def traduction():
             traduction.translated = True
             traduction.translatedOn = datetime.utcnow()
             traduction.translatedBy = session.get("user", default="Djamel")
-            traduction.issue = request.args.get(f"exampleCheck{id_traduction}")
-
-         # li ce commentaire stp
-         # il ma dit meme si la phrase ne peut pas etre traduite il a coché sur issue
-        # et l'utilisateur fait entrer du text on garde le text et le checkbox et a True
-
+            traduction.issue = True if issue else False
         db.session.commit()
-
     not_translated = Translation.query.filter(Translation.translated == False).all()
-    return render_template('traductions.html', traductions=not_translated)
+    return render_template('traductions.html', traductions=not_translated,avrg=user.average_score_user,tops=tops)
 
 
 @app.route('/score', methods=['GET', 'POST'])
 def score():
+    username = session.get("user", default="Yahya")
     if request.method == 'POST':
-        username = session.get("user", default="Yahya")
+
         id_traduction = request.args.get('id_traduction')
         traduction = Translation.query.filter(Translation.id == id_traduction).first()
         # Si c'est pas le meme user qui a traduit
         if username != traduction.translatedBy:
             traduction.verified = True
-            traduction.quality = int(request.form.get(f"score{id_traduction}"))
+            traduction.quality = int(request.form['score'+id_traduction])
             traduction.verifiedOn = datetime.utcnow()
             traduction.verifiedBy = username
+            traduction.com = request.form['com'+id_traduction]
+            db.session.commit()
+            user = User.query.filter(User.name==username).first()
+            user.average_score_user
+
         # TODO: afficher un message d'erreur si c'est le meme...
         # else: ...
     not_scored = Translation.query.filter(and_(Translation.translated == True,
-                                               Translation.verified == False)).all()
+                                               Translation.verified == False,
+                                               Translation.translatedBy != username,
+                                               Translation.issue==False
+                                               )).all()
     return render_template('score.html', traductions=not_scored)
 
 
+@app.route('/reserch', methods=['GET', 'POST'])
+def reserch():
+    page = request.args.get('page')
+    string = request.form['recherch']
+    if request.method == 'POST' and string != '':
+        if page == 'traduction':
+            traduction = Translation.query.filter(and_(Translation.src.like('%' + string + '%'),
+                                                       Translation.translated==False)).all()
+            return render_template('traductions.html', traductions=traduction)
+        elif page == 'score':
+            traduction = Translation.query.filter(and_(or_(Translation.trg.like('%' + string + '%'),
+                                                      Translation.src.like('%' + string + '%'))),
+                                                  Translation.translated==True,
+                                                  Translation.verified==False,
+                                                  Translation.issue==False).all()
+            return render_template('score.html', traductions=traduction)
+
+
+
+@app.route('/', methods=['GET', 'POST'])
+def login():
+    sign = request.args.get('sign')
+    if  request.method == 'POST':
+        username = request.form['sign']
+        user = User.query.filter(User.name == username).first()
+        if sign=='in' and user!=None:
+            session['user']=user.name
+            return redirect(url_for('index'))
+        elif sign=='up' and user==None:
+            db.session.add(User(name=username))
+            db.session.commit()
+            session['user'] = username
+            return redirect(url_for('index'))
+    return render_template('login.html')
+
+
+@app.route('/logout')
+def logout():
+   # remove the username from the session if it is there
+   session.pop('user', None)
+   return redirect(url_for('login'))
 if __name__ == '__main__':
     app.run(debug=True,port=8080)
