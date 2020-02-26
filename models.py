@@ -14,12 +14,12 @@ class Translation(db.Model):
     issue = db.Column(db.Boolean, default=False)
     translated = db.Column(db.Boolean, default=False)
     translatedOn = db.Column(db.Date, default=datetime.utcnow)
-    translatedBy = db.Column(db.String, default="---")
+    translatedBy = db.Column(db.String(255), default="---")
     quality = db.Column(db.Integer, default=0)
     verified = db.Column(db.Boolean, default=False)
     verifiedOn = db.Column(db.Date, nullable=True)
-    verifiedBy = db.Column(db.String, default="---")
-    com = db.Column(db.String, default="---")
+    verifiedBy = db.Column(db.String(255), default="---")
+    com = db.Column(db.Text, default="---")
 
 
 class User(db.Model):
