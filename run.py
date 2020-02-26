@@ -1,8 +1,7 @@
 from datetime import datetime
-
-from sqlalchemy import and_
+from sqlalchemy import and_,or_
 from sqlalchemy_utils import database_exists
-from flask import Flask, render_template, url_for, request, session
+from flask import Flask, render_template,request, session
 from models import db, Translation, User
 
 app = Flask(__name__, template_folder="app/templates/",
@@ -75,6 +74,23 @@ def score():
                                                )).all()
     return render_template('score.html', traductions=not_scored)
 
+
+@app.route('/reserch', methods=['GET', 'POST'])
+def reserch():
+    page = request.args.get('page')
+    string = request.form['recherch']
+    if request.method == 'POST' and string != '':
+        if page == 'traduction':
+            traduction = Translation.query.filter(and_(Translation.src.like('%' + string + '%'),
+                                                       Translation.translated==False)).all()
+            return render_template('traductions.html', traductions=traduction)
+        elif page == 'score':
+            traduction = Translation.query.filter(and_(or_(Translation.trg.like('%' + string + '%'),
+                                                      Translation.src.like('%' + string + '%'))),
+                                                  Translation.translated==True,
+                                                  Translation.verified==False,
+                                                  Translation.issue==False).all()
+            return render_template('score.html', traductions=traduction)
 
 if __name__ == '__main__':
     app.run(debug=True,port=8080)

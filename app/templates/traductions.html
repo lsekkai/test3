@@ -30,9 +30,12 @@
 		    <div class="container text-center">
 			    <h2 class="heading">Choisissez une phrase et traduisez la vers le dialect Algerien "Darija"</h2>
 			    <div class="intro">Vous pouvez recherche une phrase rapidement en utilisant la barre de recherche </div>
-			    <form class="signup-form form-inline justify-content-center pt-3">
+			    <form id="recherch-form"
+					  class="signup-form form-inline justify-content-center pt-3"
+				 	  action="{{ url_for('reserch',page='traduction')}}"
+					  method="POST">
                     <div class="form-group">
-                        <input type="text" id="semail" name="semail1" class="form-control mr-md-1 semail" placeholder="recherche ...">
+                        <input type="text" id="semail" name="recherch" class="form-control mr-md-1 semail" placeholder="recherche ...">
                     </div>
                     <button type="submit" class="btn btn-primary">Recherche</button>
                 </form>
