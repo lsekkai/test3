@@ -18,12 +18,22 @@
 
 <body>
     
-    <header class="header ">	    
+    <header class="header ">
+
 		<div class="link-back">
+			<div class="card " style="margin-right:10px;">
+				<h6>* Your Score : {{avrg}}</h6>
+			</div>
+			<h6>Top  5 :</h6>
+			<div class="top-ten ">
+				{% for top in tops %}
+					<i style="color: black;">* {{top}}</i><br/>
+				{% endfor %}
+			</div>
+			<p></p>
 			<i class="fa fa-home" style="color: black;" >  </i><a role="text" href="{{ url_for('index') }}" >  Home</a><br/>
 			<i class="fas fa-star" style="color: black;"></i><a role="text" href="{{ url_for('score') }}" >  Score</a><br/>
-			<i class="fa fa-sign-out" style="color: black;"></i><a role="text" href="{{ url_for('logout') }}" >  Logout</a>
-			
+			<i class="fa fa-sign-out" style="color: black;"></i><a role="text" href="{{ url_for('logout') }}" >  Logout</a><br/>
 		</div>
     </header>
     

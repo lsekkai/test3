@@ -33,6 +33,11 @@ def index():
 @app.route('/traduction', methods=['GET', 'POST'])
 def traduction():
     id_traduction = request.args.get('id_traduction')
+    username = session.get("user", default="Djamel")
+    user = User.query.filter(User.name == username).first()
+    user.average_score_user
+    tops=user.Nmaxelements()
+
     if request.method == 'POST':
         traduction = Translation.query.filter(Translation.id == id_traduction).first()
         trg = request.form[f"translation{id_traduction}"]
@@ -43,15 +48,9 @@ def traduction():
             traduction.translatedOn = datetime.utcnow()
             traduction.translatedBy = session.get("user", default="Djamel")
             traduction.issue = True if issue else False
-
-         # li ce commentaire stp
-         # il ma dit meme si la phrase ne peut pas etre traduite il a coché sur issue
-        # et l'utilisateur fait entrer du text on garde le text et le checkbox et a True
-
         db.session.commit()
-
     not_translated = Translation.query.filter(Translation.translated == False).all()
-    return render_template('traductions.html', traductions=not_translated)
+    return render_template('traductions.html', traductions=not_translated,avrg=user.average_score_user,tops=tops)
 
 
 @app.route('/score', methods=['GET', 'POST'])
@@ -69,7 +68,8 @@ def score():
             traduction.verifiedBy = username
             traduction.com = request.form['com'+id_traduction]
             db.session.commit()
-
+            user = User.query.filter(User.name==username).first()
+            user.average_score_user
 
         # TODO: afficher un message d'erreur si c'est le meme...
         # else: ...
