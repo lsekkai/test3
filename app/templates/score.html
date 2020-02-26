@@ -48,10 +48,11 @@
 				{% for traduction in traductions %}
 			    <div class="item mb-5">
 				    <div class="media">
-					    <div class="media-body">
+					    <div class="media-body"style="padding:7px;">
 
-							<h3 class="title mb-1">{{traduction.src}}</h3>
-							<h3 class="title mb-1">{{traduction.trg}}</h3>
+							<h3 class="title mb-1" style="margin-left:15px;">{{traduction.src}}</h3>
+							<p></p>
+							<h3 class="title mb-1" style="margin-left:15px;">{{traduction.trg}}</h3>
 							<form id="comment-form{{traduction.trg}}" class="signup-form form-inline pt-3" action="{{ url_for('score' ,id_traduction=traduction.id)}}" method="POST">
                                 <div class="form-group">
                                     <input type="number" name="score{{traduction.id}}" form="comment-form{{traduction.trg}}" value="0" min="0" max="10" id="score{{traduction.id}}" class="form-control mr-md-1 semail"></br>
