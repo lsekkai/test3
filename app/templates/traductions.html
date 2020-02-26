@@ -18,10 +18,10 @@
 
 <body>
     
-    <div class="header " >
-
-		<div class="link-back">
-			<div class="card " style="margin-right:10px;">
+    <div class="header " style="overflow: auto;">
+		<img src="./static/style/icon/google_translate.png" height="142" width="142"/>
+		<div class="link-back" style="margin-bottom:50%">
+			<div class="card " style="margin-right:10px; ">
 				<h6>* Your Score : {{avrg}}</h6>
 			</div>
 			<h6>Top  5 :</h6>
@@ -36,7 +36,6 @@
 			<i class="fa fa-sign-out" style="color: black;"></i><a role="text" href="{{ url_for('logout') }}" >  Logout</a><br/>
 		</div>
     </div>
-    
     <div class="main-wrapper">
 	    <section class="cta-section theme-bg-light py-5">
 		    <div class="container text-center">

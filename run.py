@@ -58,6 +58,9 @@ def traduction():
 @app.route('/score', methods=['GET', 'POST'])
 def score():
     username = session.get("user", default="Yahya")
+    user = User.query.filter(User.name == username).first()
+    user.average_score_user
+    tops = user.Nmaxelements()
     if request.method == 'POST':
 
         id_traduction = request.args.get('id_traduction')
@@ -80,7 +83,7 @@ def score():
                                                Translation.translatedBy != username,
                                                Translation.issue==False
                                                )).all()
-    return render_template('score.html', traductions=not_scored)
+    return render_template('score.html', traductions=not_scored,avrg=user.average_score_user,tops=tops)
 
 
 @app.route('/reserch', methods=['GET', 'POST'])
