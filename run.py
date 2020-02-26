@@ -1,13 +1,19 @@
 from datetime import datetime
 from sqlalchemy import and_,or_
+from sqlalchemy.orm import Session
 from sqlalchemy_utils import database_exists
-from flask import Flask, render_template,request, session
+from flask import Flask, render_template, request, session, url_for
+from werkzeug.utils import redirect
+
 from models import db, Translation, User
 
 app = Flask(__name__, template_folder="app/templates/",
                       static_folder="app/templates/")
 DB_URI = 'sqlite:///test.db'
 app.config['SQLALCHEMY_DATABASE_URI'] = DB_URI
+app.config['SESSION_TYPE'] = 'filesystem'
+app.config['SECRET_KEY'] = 'super secret key'
+sess = Session()
 db.init_app(app)
 if not database_exists(DB_URI):
     with app.app_context():
@@ -19,7 +25,7 @@ if not database_exists(DB_URI):
         db.session.commit()
 
 
-@app.route('/')
+@app.route('/choise')
 def index():
     return render_template('index.html')
 
@@ -92,5 +98,29 @@ def reserch():
                                                   Translation.issue==False).all()
             return render_template('score.html', traductions=traduction)
 
+
+
+@app.route('/', methods=['GET', 'POST'])
+def login():
+    sign = request.args.get('sign')
+    if  request.method == 'POST':
+        username = request.form['sign']
+        user = User.query.filter(User.name == username).first()
+        if sign=='in' and user!=None:
+            session['user']=user.name
+            return redirect(url_for('index'))
+        elif sign=='up' and user==None:
+            db.session.add(User(name=username))
+            db.session.commit()
+            session['user'] = username
+            return redirect(url_for('index'))
+    return render_template('login.html')
+
+
+@app.route('/logout')
+def logout():
+   # remove the username from the session if it is there
+   session.pop('user', None)
+   return redirect(url_for('login'))
 if __name__ == '__main__':
     app.run(debug=True,port=8080)
