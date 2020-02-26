@@ -40,20 +40,6 @@ class User(db.Model):
         return  self.avrg
 
     def Nmaxelements(self):
-        final_list = []
-        list1 = (User.query.all())
-        for user in list1:
-            user.average_score_user
-        length = len(User.query.all()) if len(User.query.all())<5 else 5
-        for i in range(0, length):
-            max1 = 0
-            for j in range(len(list1)):
-                if list1[j].avrg > max1:
-                    max1 = list1[j].avrg
-
-            for user in list1:
-                if user.avrg==max1:
-                    string = user.name + " : " + str(user.avrg)
-                    list1.remove(user)
-                    final_list.append(string)
-        return (final_list)
+        users = sorted(User.query.all(),
+                       key=lambda u: u.average_score_user, reverse=True)[:5]
+        return [f"{u.name} : {u.avrg}" for u in users]
