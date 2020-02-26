@@ -9,20 +9,22 @@ from models import db, Translation, User
 
 app = Flask(__name__, template_folder="app/templates/",
                       static_folder="app/templates/")
-DB_URI = 'sqlite:///test.db'
+# DB_URI = 'sqlite:///test.db'
+DB_URI = 'mysql+mysqlconnector://yahya:yahya@localhost/test'
 app.config['SQLALCHEMY_DATABASE_URI'] = DB_URI
 app.config['SESSION_TYPE'] = 'filesystem'
 app.config['SECRET_KEY'] = 'super secret key'
 sess = Session()
 db.init_app(app)
-if not database_exists(DB_URI):
-    with app.app_context():
-        db.create_all()
-        for i in range(1, 21):
-            db.session.add(Translation(src=f"السلام عليكم ورحمة الله وبركاته{i}"))
-        db.session.add(User(name="Djamel"))
-        db.session.add(User(name="Yahya"))
-        db.session.commit()
+# if not database_exists(DB_URI):
+with app.app_context():
+    db.drop_all()
+    db.create_all()
+    for i in range(1, 21):
+        db.session.add(Translation(src=f"test{i}"))
+    db.session.add(User(name="Djamel"))
+    db.session.add(User(name="Yahya"))
+    db.session.commit()
 
 
 @app.route('/choise')
@@ -56,6 +58,9 @@ def traduction():
 @app.route('/score', methods=['GET', 'POST'])
 def score():
     username = session.get("user", default="Yahya")
+    user = User.query.filter(User.name == username).first()
+    user.average_score_user
+    tops = user.Nmaxelements()
     if request.method == 'POST':
 
         id_traduction = request.args.get('id_traduction')
@@ -78,7 +83,7 @@ def score():
                                                Translation.translatedBy != username,
                                                Translation.issue==False
                                                )).all()
-    return render_template('score.html', traductions=not_scored)
+    return render_template('score.html', traductions=not_scored,avrg=user.average_score_user,tops=tops)
 
 
 @app.route('/reserch', methods=['GET', 'POST'])
