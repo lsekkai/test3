@@ -18,13 +18,23 @@
 
 <body>
     
-    <header class="header ">	    
-		<div class="link-back">
+    <div class="header " style="overflow: auto;">
+		<img src="./static/style/icon/google_translate.png" height="142" width="142"/>
+		<div class="link-back" style="margin-bottom:50%"><div class="card " style="margin-right:10px; ">
+				<h6>* Your Score : {{avrg}}</h6>
+			</div>
+			<h6>Top  5 :</h6>
+			<div class="top-ten ">
+				{% for top in tops %}
+					<i style="color: black;">* {{top}}</i><br/>
+				{% endfor %}
+			</div>
+			<p></p>
 			<i class="fa fa-home" style="color: black;" >  </i><a role="text" href="{{ url_for('index') }}" >  Home</a><br/>
 			<i class="fas fa-language" style="color: black;"></i><a role="text" href="{{ url_for('traduction') }}" >  Translate</a><br/>
 			<i class="fa fa-sign-out" style="color: black;"></i><a role="text" href="{{ url_for('logout') }}" >  Logout</a>
 		</div>
-    </header>
+    </div>
     
     <div class="main-wrapper">
 	    <section class="cta-section theme-bg-light py-5">
