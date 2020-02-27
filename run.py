@@ -16,15 +16,15 @@ app.config['SESSION_TYPE'] = 'filesystem'
 app.config['SECRET_KEY'] = 'super secret key'
 sess = Session()
 db.init_app(app)
-# if not database_exists(DB_URI):
-with app.app_context():
-    db.drop_all()
-    db.create_all()
-    for i in range(1, 21):
-        db.session.add(Translation(src=f"test{i}"))
-    db.session.add(User(name="Djamel"))
-    db.session.add(User(name="Yahya"))
-    db.session.commit()
+if not database_exists(DB_URI):
+    with app.app_context():
+        db.drop_all()
+        db.create_all()
+        for i in range(1, 21):
+            db.session.add(Translation(src=f"test{i}"))
+        db.session.add(User(name="Djamel"))
+        db.session.add(User(name="Yahya"))
+        db.session.commit()
 
 
 @app.route('/choise')
