@@ -18,7 +18,7 @@
                     <h1 class="card-header">Translate</h1>
                     <h3 class="translate-decription">Cliquez ici pour</h3>
                     <h3 class="translate-decription">Traduire une phrase</h3>
-                    <a role="button" href="{{ url_for('traduction') }}" class="btn btn-success">GO !</a>
+                    <a role="button" href="{{ url_for('traduction',page_num=1) }}" class="btn btn-success">GO !</a>
                 </div>
             </div>
             <div class="col-xl-6 col-sm-6 mb-6">
@@ -26,7 +26,7 @@
                     <h1 class="card-header">Score</h1>
                     <h3 class="translate-decription">Cliquez ici pour</h3>
                     <h3 class="translate-decription">Noter une traduction</h3>
-                    <a role="button" href="{{ url_for('score') }}" class="btn btn-success">GO !</a>
+                    <a role="button" href="{{ url_for('score',page_num=1) }}" class="btn btn-success">GO !</a>
                 </div>
             </div>
         </div>

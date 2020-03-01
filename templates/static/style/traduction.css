@@ -25,3 +25,10 @@ a.btn.btn-success{
     background-color: #2e7eb1;
     border-color: #2e7eb1;
 }
+.pagination a {
+  border-radius: 5px;
+}
+
+.pagination a.active {
+  border-radius: 5px;
+}

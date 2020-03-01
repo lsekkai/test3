@@ -19,7 +19,7 @@
 <body>
     
     <div class="header " style="overflow: auto;padding-bottom: 20%;">
-		<img src="./static/style/icon/google_translate.png" height="142" width="142"  style="margin-bottom: 50px;"/><br/>
+		<img src="static/style/icon/google_translate.png" height="142" width="142"  style="margin-bottom: 50px;"/><br/>
 		<div class="link-back" >
 			<div class="card " style="margin-right:10px;">
 				<h6>* Your Score : {{avrg}}</h6>
@@ -32,7 +32,7 @@
 				</div>
 			<p></p>
 			<i class="fa fa-home" style="color: black;" >  </i><a role="text" href="{{ url_for('index') }}" >  Home</a><br/>
-			<i class="fas fa-star" style="color: black;"></i><a role="text" href="{{ url_for('score') }}" >  Score</a><br/>
+			<i class="fas fa-star" style="color: black;"></i><a role="text" href="{{ url_for('score',page_num=1) }}" >  Score</a><br/>
 			<i class="fa fa-sign-out" style="color: black;"></i><a role="text" href="{{ url_for('logout') }}" >  Logout</a><br/>
 		</div>
     </div>
@@ -54,7 +54,7 @@
 	    </section>
 	    <section class="blog-list px-3 py-5 p-md-5">
 		    <div class="container">
-				{% for traduction in traductions %}
+				{% for traduction in traductions.items %}
 			    <div class="item mb-5">
 
 				    <div class="media">
@@ -62,7 +62,8 @@
 					    <div class="media-body" style="padding:7px;">
 
 							<h3 class="title mb-1" style="margin-left:15px;">{{ traduction.src }}</h3>
-								<form id="comment-form{{traduction.id}}" class="signup-form form-inline pt-3" action="{{ url_for('traduction',id_traduction=traduction.id)}}" method="POST">
+							{% set page = traductions.page | int %}
+								<form id="comment-form{{traduction.id}}" class="signup-form form-inline pt-3" action="{{ url_for('traduction',id_traduction=traduction.id,page_num=page ) }}"  method="POST">
 									<div class="form-check">
 										<input type="checkbox" name="issue{{traduction.id}}" class="form-check-input" id="issue{{traduction.id}}">
 										<label class="form-check-label" form="exampleCheck{{traduction.id}}">impossible to translate</label>
@@ -78,9 +79,16 @@
 
 				    </div><!--//media-->
 				</div><!--//item-->
-									{% endfor %}
-
-				
+			  {% endfor %}
+				<div class="pagination"  >
+				{% for page in traductions.iter_pages(left_edge=2, left_current=2, right_current=5, right_edge=2) %}
+					{% if page %}
+						<a href="{{url_for('traduction',page_num=page)}}"> {{page}}</a>
+					{% else %}
+						
+					{% endif %}
+				{% endfor %}
+				</div>
 		    </div>
 	    </section>
 	    
@@ -92,12 +100,12 @@
        
     <!-- Javascript -->          
     <script src="static/assets/plugins/jquery-3.3.1.min.js"></script>
-    <script src="static/assets/plugins/popper.min.js"></script> 
-    <script src="static/assets/plugins/bootstrap/js/bootstrap.min.js"></script> 
+    <script src="static/assets/plugins/popper.min.js"></script>
+    <script src="static/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
 
     <!-- Style Switcher (REMOVE ON YOUR PRODUCTION SITE) -->
-    <script src="static/assets/js/demo/style-switcher.js"></script>     
-    
+    <script src="templates/static/assets/js/demo/style-switcher.js"></script>
+
 
 </body>
 </html> 

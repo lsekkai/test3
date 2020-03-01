@@ -2,29 +2,28 @@ from datetime import datetime
 from sqlalchemy import and_,or_
 from sqlalchemy.orm import Session
 from sqlalchemy_utils import database_exists
-from flask import Flask, render_template, request, session, url_for
+from flask import Flask, render_template, request, session, url_for, jsonify, json
 from werkzeug.utils import redirect
-
+import jsonpickle
 from models import db, Translation, User
 
-app = Flask(__name__, template_folder="app/templates/",
-                      static_folder="app/templates/")
+app = Flask(__name__, template_folder="templates/",
+                      static_folder="templates/")
 DB_URI = 'sqlite:///test.db'
-# DB_URI = 'mysql+mysqlconnector://yahya:yahya@localhost/test'
 app.config['SQLALCHEMY_DATABASE_URI'] = DB_URI
 app.config['SESSION_TYPE'] = 'filesystem'
 app.config['SECRET_KEY'] = 'super secret key'
 sess = Session()
 db.init_app(app)
-# if not database_exists(DB_URI):
-with app.app_context():
-    db.drop_all()
-    db.create_all()
-    for i in range(1, 21):
-        db.session.add(Translation(src=f"test{i}"))
-    db.session.add(User(name="Djamel"))
-    db.session.add(User(name="Yahya"))
-    db.session.commit()
+if not database_exists(DB_URI):
+    with app.app_context():
+        db.drop_all()
+        db.create_all()
+        for i in range(1, 1000):
+            db.session.add(Translation(src=f"test {i}"))
+        db.session.add(User(name="Djamel"))
+        db.session.add(User(name="Yahya"))
+        db.session.commit()
 
 
 @app.route('/choise')
@@ -35,6 +34,7 @@ def index():
 @app.route('/traduction', methods=['GET', 'POST'])
 def traduction():
     id_traduction = request.args.get('id_traduction')
+    page_num = int(request.args.get('page_num'))
     username = session.get("user", default="Djamel")
     user = User.query.filter(User.name == username).first()
     user.average_score_user
@@ -51,18 +51,18 @@ def traduction():
             traduction.translatedBy = session.get("user", default="Djamel")
             traduction.issue = True if issue else False
         db.session.commit()
-    not_translated = Translation.query.filter(Translation.translated == False).all()
+    not_translated = Translation.query.filter(Translation.translated == False).paginate(per_page=10,page=page_num)
     return render_template('traductions.html', traductions=not_translated,avrg=user.average_score_user,tops=tops)
 
 
 @app.route('/score', methods=['GET', 'POST'])
 def score():
     username = session.get("user", default="Yahya")
+    page_num = int(request.args.get('page_num'))
     user = User.query.filter(User.name == username).first()
     user.average_score_user
     tops = user.Nmaxelements()
     if request.method == 'POST':
-
         id_traduction = request.args.get('id_traduction')
         traduction = Translation.query.filter(Translation.id == id_traduction).first()
         # Si c'est pas le meme user qui a traduit
@@ -76,13 +76,11 @@ def score():
             user = User.query.filter(User.name==username).first()
             user.average_score_user
 
-        # TODO: afficher un message d'erreur si c'est le meme...
-        # else: ...
     not_scored = Translation.query.filter(and_(Translation.translated == True,
                                                Translation.verified == False,
                                                Translation.translatedBy != username,
                                                Translation.issue==False
-                                               )).all()
+                                               )).paginate(per_page=10,page=page_num)
     return render_template('score.html', traductions=not_scored,avrg=user.average_score_user,tops=tops)
 
 
@@ -127,5 +125,7 @@ def logout():
    # remove the username from the session if it is there
    session.pop('user', None)
    return redirect(url_for('login'))
+
+
 if __name__ == '__main__':
     app.run(debug=True,port=8080)
