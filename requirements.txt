@@ -4,3 +4,4 @@ flask_migrate
 sqlalchemy_utils
 mysqlclient
 mysql-connector-python
+jsonpickle

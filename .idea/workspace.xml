@@ -137,9 +137,9 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Python.app" />
       <item itemvalue="Python.flask" />
       <item itemvalue="Python.models" />
-      <item itemvalue="Python.app" />
       <item itemvalue="Python.run" />
     </list>
     <recent_temporary>

@@ -22,7 +22,7 @@
 		<img src="static/style/icon/google_translate.png" height="142" width="142"  style="margin-bottom: 50px;"/><br/>
 		<div class="link-back" >
 			<div class="card " style="margin-right:10px;">
-				<h6>* Your Score : {{avrg}}</h6>
+				<h6>* Votre Score : {{avrg}}</h6>
 			</div>
 				<h6 style="margin-top: 50px;">Top  5 :</h6>
 				<div class="top-ten ">
@@ -31,25 +31,25 @@
 					{% endfor %}
 				</div>
 			<p></p>
-			<i class="fa fa-home" style="color: black;" >  </i><a role="text" href="{{ url_for('index') }}" >  Home</a><br/>
-			<i class="fas fa-star" style="color: black;"></i><a role="text" href="{{ url_for('score',page_num=1) }}" >  Score</a><br/>
-			<i class="fa fa-sign-out" style="color: black;"></i><a role="text" href="{{ url_for('logout') }}" >  Logout</a><br/>
+			<i class="fa fa-home" style="color: black;" >  </i><a role="text" href="{{ url_for('index') }}" >  Menu</a><br/>
+			<i class="fas fa-star" style="color: black;"></i><a role="text" href="{{ url_for('score',page_num=1) }}" >  Noter</a><br/>
+			<i class="fa fa-sign-out" style="color: black;"></i><a role="text" href="{{ url_for('logout') }}" >  Sortir</a><br/>
 		</div>
     </div>
     <div class="main-wrapper">
 	    <section class="cta-section theme-bg-light py-5">
 		    <div class="container text-center">
-			    <h2 class="heading">Choisissez une phrase et traduisez la vers le dialect Algerien "Darija"</h2>
-			    <div class="intro">Vous pouvez recherche une phrase rapidement en utilisant la barre de recherche </div>
-			    <form id="recherch-form"
-					  class="signup-form form-inline justify-content-center pt-3"
-				 	  action="{{ url_for('reserch',page='traduction')}}"
-					  method="POST">
-                    <div class="form-group">
-                        <input type="text" id="semail" name="recherch" class="form-control mr-md-1 semail" placeholder="recherche ...">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Recherche</button>
-                </form>
+			    <h2 class="heading">Veuillez traduire les phrases ci-dessous vers le dialecte algerien (Darija)</h2>
+			    <div class="intro">Vous pouvez arreter la traduction à n'importe quel moment et la reprendre ulterieurment avec votre nom d'utilisateur</div>
+<!--			    <form id="recherch-form"-->
+<!--					  class="signup-form form-inline justify-content-center pt-3"-->
+<!--				 	  action="{{ url_for('reserch',page='traduction')}}"-->
+<!--					  method="POST">-->
+<!--                    <div class="form-group">-->
+<!--                        <input type="text" id="semail" name="recherch" class="form-control mr-md-1 semail" placeholder="recherche ...">-->
+<!--                    </div>-->
+<!--                    <button type="submit" class="btn btn-primary">Rechercher</button>-->
+<!--                </form>-->
 		    </div><!--//container-->
 	    </section>
 	    <section class="blog-list px-3 py-5 p-md-5">
@@ -66,13 +66,13 @@
 								<form id="comment-form{{traduction.id}}" class="signup-form form-inline pt-3" action="{{ url_for('traduction',id_traduction=traduction.id,page_num=page ) }}"  method="POST">
 									<div class="form-check">
 										<input type="checkbox" name="issue{{traduction.id}}" class="form-check-input" id="issue{{traduction.id}}">
-										<label class="form-check-label" form="exampleCheck{{traduction.id}}">impossible to translate</label>
+										<label class="form-check-label" form="exampleCheck{{traduction.id}}">impossible à traduire (cette phrase n'a aucun sens)</label>
 									</div>
 									<div class="form-group" style="margin-bottom:15px;" >
 										<textarea  name="translation{{traduction.id}}" id="traduction{{traduction.id}}" cols="70%" form="comment-form{{traduction.id}}" class=" form-control mr-md-1 semail " placeholder="Traduire..."></textarea>
 									</div>
 									<br/>
-									<button type="submit" class="btn btn-primary">Send</button>
+									<button type="submit" class="btn btn-primary">Envoyer</button>
 								</form>
 
 					    </div><!--//media-body-->

@@ -13,33 +13,34 @@
                 <form id="sign-up-form"
 				 	  action="{{ url_for('login',sign='up')}}"
 					  method="POST">
-                    <h1>Create Account</h1>
-                    <span>or use your user name for registration</span>
-                    <input type="text" name="sign" placeholder="User Name" />
-                    <button>Sign Up</button>
+                    <h1>Créer votre compte</h1>
+                    <span>Entrer un nom d'utilisateur.</span>
+                    <input type="text" name="sign" placeholder="Nom d'utilisateur " />
+                    <button>Créer un compte</button>
                 </form>
             </div>
             <div class="form-container sign-in-container">
                 <form id="sign-in-form"
 				 	  action="{{ url_for('login',sign='in')}}"
 					  method="POST">
-                    <h1>Sign in</h1>
-                    <span>or use your account</span>
-                    <input type="text" name="sign" placeholder="User Name" />
-                    <button>Sign In</button>
+                    <h1>Se connecter</h1>
+                    <span>Entrer votre nom d'utilisateur.</span>
+                    <input type="text" name="sign" placeholder="Nom d'utilisateur" />
+                    <button>Connecter</button>
                 </form>
             </div>
             <div class="overlay-container">
                 <div class="overlay">
                     <div class="overlay-panel overlay-left">
-                        <h1>Welcome Back!</h1>
-                        <p>To keep connected with us please login with your personal info</p>
-                        <button class="ghost" id="signIn">Sign In</button>
+                        <h1>Vous avez un compte deja!?</h1>
+                        <p>Clicker dessous pour entre votre nom d'utilisateur.</p>
+                        <button class="ghost" id="signIn">Se connecter</button>
                     </div>
                     <div class="overlay-panel overlay-right">
-                        <h1>Hello, Friend!</h1>
-                        <p>Enter your personal details and start journey with us</p>
-                        <button class="ghost" id="signUp">Sign Up</button>
+                        <h1>vous n'êtes pas inscrit!?</h1>
+                        <p>Soyez le bienvenu!</p>
+                        <p>Inscrivez-vous avec juste un nom d'utilisateur.</p>
+                        <button class="ghost" id="signUp">Créer un compte</button>
                     </div>
                 </div>
             </div>
