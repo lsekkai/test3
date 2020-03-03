@@ -1,0 +1,7 @@
+* Quand la liste des traductions/Noter est vide faut dire que cette tache la est vide
+* Changer la input methode pour noter vers une methode avec bar glissante
+Example(HTML): "1 <input type="range" id="score" name="score" min="0" max="5"> 10"
+* Ajouter des lignes dans la page noter.html entre la phrase originale et la phrase traduite et entre la phrase traduite et les options
+* bullet points au lieu des etoiles dans le menu des scores
+* Une page static html vide avec un lien dans le menu principale (about.html) pour decrire le projet
+* Fixer le bug de la page login qui decale un peux a gauche 
