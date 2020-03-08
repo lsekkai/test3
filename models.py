@@ -1,6 +1,6 @@
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
-
+from sqlalchemy import and_
 
 db = SQLAlchemy()
 
@@ -32,10 +32,12 @@ class User(db.Model):
 
     @property
     def average_score_user(self):
-        translations = Translation.query.filter(Translation.translatedBy == self.name).all()
+        translations = Translation.query.filter(and_(Translation.translatedBy == self.name,
+                                                     Translation.verified == True))
+        translations = list(translations)
         if not translations:
             return 0
-        scores = [trans.quality for trans in translations if trans.verified]
+        scores = [trans.quality for trans in translations]
         self.avrg = round(sum(scores) / len(scores), 2)
         return self.avrg
 
