@@ -35,9 +35,9 @@ class User(db.Model):
         translations = Translation.query.filter(Translation.translatedBy == self.name).all()
         if not translations:
             return 0
-        scores = [trans.quality for trans in translations]
-        self.avrg =  int(round(sum(scores) / len(scores), 2))
-        return  self.avrg
+        scores = [trans.quality for trans in translations if trans.verified]
+        self.avrg = round(sum(scores) / len(scores), 2)
+        return self.avrg
 
     def Nmaxelements(self):
         users = sorted(User.query.all(),
