@@ -116,11 +116,12 @@ def login():
         if sign=='in' and user!=None:
             session['user']=user.name
             return redirect(url_for('index'))
-        elif sign=='up' and user==None:
-            db.session.add(User(name=username))
-            db.session.commit()
-            session['user'] = username
-            return redirect(url_for('index'))
+        elif sign=='up' and user==None and username != "":
+            if not User.query.filter(User.name == username).first():
+                db.session.add(User(name=username))
+                db.session.commit()
+                session['user'] = username
+                return redirect(url_for('index'))
     return render_template('login.html')
 
 
