@@ -6,7 +6,21 @@
     <title>Login</title>
 </head>
 <body>
-    
+    {% with messages = get_flashed_messages() %}
+       {% if messages %}
+         {% for message in messages %}
+
+            <h3 id="myPopup">{{ message }}</h3>
+              <script>
+                // When the user clicks on <div>, open the popup
+
+                  var popup = document.getElementById("myPopup");
+                  popup.classList.toggle("show");
+
+             </script>
+         {% endfor %}
+       {% endif %}
+    {% endwith %}
     <div>
         <div class="container" id="container">
             <div class="form-container sign-up-container">

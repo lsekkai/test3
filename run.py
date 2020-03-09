@@ -2,7 +2,7 @@ from datetime import datetime
 from sqlalchemy import and_,or_
 from sqlalchemy.orm import Session
 from sqlalchemy_utils import database_exists
-from flask import Flask, render_template, request, session, url_for, jsonify, json
+from flask import Flask, render_template, request, session, url_for, jsonify, json, flash
 from werkzeug.utils import redirect
 import jsonpickle
 from models import db, Translation, User
@@ -13,6 +13,7 @@ DB_URI = 'sqlite:///test.db'
 app.config['SQLALCHEMY_DATABASE_URI'] = DB_URI
 app.config['SESSION_TYPE'] = 'filesystem'
 app.config['SECRET_KEY'] = 'super secret key'
+app.secret_key = 'blabla'
 sess = Session()
 db.init_app(app)
 if not database_exists(DB_URI):
@@ -113,14 +114,24 @@ def login():
     if  request.method == 'POST':
         username = request.form['sign']
         user = User.query.filter(User.name == username).first()
-        if sign=='in' and user!=None:
-            session['user']=user.name
-            return redirect(url_for('index'))
+        if sign=='in'  :
+            if user!=None :
+                session['user']=user.name
+                flash('Thank you for login')
+                return redirect(url_for('index'))
+            else:
+                flash('user unexistant')
+                return render_template('login.html')
+
         if sign=='up' and user==None and username!='' and not username.isspace() :
             db.session.add(User(name=username))
             db.session.commit()
             session['user'] = username
+            flash('Thank you for registering')
             return redirect(url_for('index'))
+        else :
+            flash('user exist')
+            return render_template('login.html')
     return render_template('login.html')
 
 
