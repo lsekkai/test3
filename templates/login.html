@@ -12,11 +12,7 @@
 
             <h3 id="myPopup" style="color: rgb(77, 142, 245);">{{ message }}</h3>
               <script>
-                // When the user clicks on <div>, open the popup
-
-                  var popup = document.getElementById("myPopup");
-                  popup.classList.toggle("show");
-
+                    alert("{{ message }}")
              </script>
          {% endfor %}
        {% endif %}
@@ -78,7 +74,7 @@ signUpButton.addEventListener('click', () => {
 signInButton.addEventListener('click', () => {
     container.classList.remove("right-panel-active");
 });
-
+ 
 </script>
 
 
