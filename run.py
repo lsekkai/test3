@@ -116,7 +116,7 @@ def login():
         if sign=='in' and user!=None:
             session['user']=user.name
             return redirect(url_for('index'))
-        if sign=='up' and user!=None and username!='' and not username.isspace() :
+        if sign=='up' and user==None and username!='' and not username.isspace() :
             db.session.add(User(name=username))
             db.session.commit()
             session['user'] = username
